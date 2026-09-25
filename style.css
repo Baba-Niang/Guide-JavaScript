@@ -298,9 +298,6 @@ body {
 /* En mode sidebar masquée */
 body.sidebar-collapsed .slide-chapter { grid-template-columns: 1fr; }
 body.sidebar-collapsed .sidebar { display: none !important; }
-body.sidebar-collapsed .slide-chapter { max-width: none; width: 100%; }
-body.sidebar-collapsed .chapter-wrap,
-body.sidebar-collapsed .fiches-list { width: 100%; }
 
 /* ============ SIDEBAR ============ */
 .sidebar { display: none; }
