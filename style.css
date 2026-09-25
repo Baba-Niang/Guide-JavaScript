@@ -155,8 +155,7 @@ body {
   text-overflow: ellipsis;
 }
 .topbar-slogan .diamond { color: var(--js-text); margin: 0 4px; }
-.topbar-tools { display: flex; align-items: center; gap: 10px; }
-.topbar-tools { margin-left: auto; }
+.topbar-tools { display: flex; align-items: center; gap: 8px; margin-left: 0; }
 .topbar-icon-item {
   display: flex;
   flex-direction: column;
@@ -200,6 +199,40 @@ body {
   margin: 0 2px;
   background: var(--border-strong);
 }
+.topbar-icon-svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.topbar-icon-svg.icon-mono { color: var(--fg); }
+.topbar-uml-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.18em;
+}
+.uml-u { color: #ef4444; }
+.uml-m { color: #22c55e; }
+.uml-l { color: #3b82f6; }
+.topbar-linkedin-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: #0a66c2;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.topbar-actions { margin-left: auto; }
 .topbar-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .sidebar-toggle-btn, .theme-toggle {
   width: 34px; height: 34px;
