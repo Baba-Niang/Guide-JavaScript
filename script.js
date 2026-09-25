@@ -118,7 +118,77 @@ function fallbackCopy(text, done) {
 }
 
 // === SCROLL TO CHAPTER (horizontal) ===
-var CHAPTERS_IDS = ['decouvrir', 'variables', 'types', 'operateurs', 'conditions', 'boucles', 'chaines', 'nombres'];
+var CHAPTERS = [
+  { id: 'decouvrir', number: '01', title: 'Découvrir JavaScript', count: '5 fiches' },
+  { id: 'variables', number: '02', title: 'Variables', count: '6 fiches' },
+  { id: 'types', number: '03', title: 'Types de données', count: '7 fiches' },
+  { id: 'operateurs', number: '04', title: 'Opérateurs', count: '13 fiches' },
+  { id: 'conditions', number: '05', title: 'Conditions', count: '2 fiches' },
+  { id: 'boucles', number: '06', title: 'Boucles', count: '8 fiches' },
+  { id: 'chaines', number: '07', title: 'Chaînes de caractères', count: '12 fiches' },
+  { id: 'nombres', number: '08', title: 'Nombres', count: '8 fiches' },
+  { id: 'tableaux', number: '09', title: 'Tableaux', count: '12 fiches' },
+  { id: 'fonctions', number: '10', title: 'Fonctions', count: '7 fiches' },
+  { id: 'objets', number: '11', title: 'Objets', count: '6 fiches' },
+  { id: 'poo', number: '12', title: 'Programmation orientée objet', count: '32 fiches' },
+  { id: 'collections', number: '13', title: 'Collections et itérateurs', count: '8 fiches' },
+  { id: 'generateurs', number: '14', title: 'Générateurs', count: '3 fiches' },
+  { id: 'erreurs', number: '15', title: 'Gestion des erreurs', count: '7 fiches' },
+  { id: 'json', number: '16', title: 'JSON', count: '6 fiches' },
+  { id: 'asynchronisme', number: '17', title: 'Asynchronisme', count: '8 fiches' },
+  { id: 'promesses', number: '18', title: 'Promesses', count: '6 fiches' },
+  { id: 'async-await', number: '19', title: 'async / await', count: '4 fiches' },
+  { id: 'event-loop', number: '20', title: 'Execution JavaScript', count: '7 fiches' },
+  { id: 'modules', number: '21', title: 'Modules', count: '11 fiches' },
+  { id: 'dom', number: '22', title: 'DOM et navigateur', count: '17 fiches' },
+  { id: 'http-api-fetch', number: '23', title: 'HTTP, APIs et Fetch', count: '20 fiches' },
+  { id: 'node-intro', number: '24', title: 'Introduction a Node.js', count: '3 fiches' },
+  { id: 'node-packages', number: '25', title: 'Packages Node.js', count: '5 fiches' },
+  { id: 'node-config', number: '26', title: 'Configuration et modules Node.js', count: '10 fiches' },
+  { id: 'backend', number: '27', title: 'Backend Node.js', count: '19 fiches' }
+];
+var CHAPTERS_IDS = CHAPTERS.map(function (chapter) { return chapter.id; });
+
+function addNewChapterNavigation() {
+  var newChapters = CHAPTERS;
+  document.querySelectorAll('.sidebar-list').forEach(function (list) {
+    if (!list.children.length) {
+      var brand = document.querySelector('.sidebar-brand');
+      if (brand) list.parentNode.insertBefore(brand.cloneNode(true), list);
+    }
+    newChapters.forEach(function (chapter) {
+      if (list.querySelector('[data-chapter="' + chapter.id + '"]')) return;
+      var item = document.createElement('li');
+      item.innerHTML = '<a class="sidebar-item" data-chapter="' + chapter.id + '" href="#' + chapter.id + '">' +
+        '<span class="sidebar-num">' + chapter.number + '</span>' +
+        '<div class="sidebar-text"><div class="sidebar-title">' + chapter.title + '</div><div class="sidebar-count">' + chapter.count + '</div></div>' +
+        '<span class="sidebar-chevron" aria-hidden="true">›</span></a>';
+      list.appendChild(item);
+    });
+  });
+  var mobileNav = document.getElementById('mobileNav');
+  if (mobileNav) {
+    newChapters.forEach(function (chapter) {
+      if (mobileNav.querySelector('[data-chapter="' + chapter.id + '"]')) return;
+      var chip = document.createElement('a');
+      chip.className = 'mobile-chip';
+      chip.dataset.chapter = chapter.id;
+      chip.href = '#' + chapter.id;
+      chip.innerHTML = '<span class="chip-num">' + chapter.number + '</span><span class="chip-dot"></span><span class="chip-label">' + chapter.title + '</span>';
+      mobileNav.appendChild(chip);
+    });
+  }
+  document.querySelectorAll('.sidebar-brand-sub').forEach(function (el) { el.textContent = '252 · 27 ch.'; });
+  document.querySelectorAll('.sidebar-item, .mobile-chip').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var href = this.getAttribute('href');
+      if (href && href.charAt(0) === '#' && href.length > 1) {
+        e.preventDefault();
+        scrollToChapter(href.slice(1));
+      }
+    });
+  });
+}
 
 function scrollToChapter(id) {
   const slide = document.getElementById('slide-' + id);
@@ -331,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', updateTopbarHeight);
 
   createParticles();
+  addNewChapterNavigation();
   setupSidebarTracking();
   setupSmoothScroll();
   setupKeyboardNav();
@@ -338,6 +409,6 @@ document.addEventListener('DOMContentLoaded', function () {
   applyInitialHash();
 
   console.log('🟨 JavaScript Décrypté — site chargé');
-  console.log('📖 60 fiches · 8 chapitres · Baba Niang');
+  console.log('📖 252 fiches · 27 chapitres · Baba Niang');
   console.log('⌨️  Utilise ← → pour naviguer entre les chapitres, Home / End pour les extrémités');
 });
