@@ -243,6 +243,8 @@ function updateSlideUI() {
 
   const currentEl = document.getElementById('slideCurrent');
   if (currentEl) currentEl.textContent = currentIdx + 1;
+  const totalEl = document.getElementById('slideTotal');
+  if (totalEl) totalEl.textContent = totalSlides;
 
   const progressEl = document.getElementById('progressFill');
   if (progressEl) progressEl.style.width = (((currentIdx + 1) / totalSlides) * 100) + '%';
